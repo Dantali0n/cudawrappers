@@ -85,7 +85,10 @@ class Wrapper {
  protected:
   Wrapper() = default;
 
-  Wrapper(const Wrapper<T> &other) : _obj(other._obj), manager(other.manager) {}
+  Wrapper(const Wrapper&) = delete;
+  Wrapper& operator=(const Wrapper&) = delete;
+
+  // Wrapper(const Wrapper<T> &other) : _obj(other._obj), manager(other.manager) {}
 
   Wrapper(Wrapper<T> &&other)
       : _obj(other._obj), manager(std::move(other.manager)) {
