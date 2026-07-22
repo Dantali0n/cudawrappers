@@ -134,6 +134,10 @@ set(CUDAWRAPPERS_COMPONENTS
 
 # Configure tests
 if(CUDAWRAPPERS_BUILD_TESTING)
+
+  # Include AddressSanitizer helper
+  include(cmake/AddressSanitizer.cmake)
+
   include(CTest)
   enable_testing()
 
