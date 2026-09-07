@@ -14,19 +14,20 @@
  */
 
 TEST_CASE("Test cu::Context", "[copy constructor]") {
+  int iterations = 4;
   cu::init();
   cu::Device device(0);
-  cu::Context context(CU_CTX_SCHED_BLOCKING_SYNC, device);
+  std::vector<cu::Context> contexts;
 
   SECTION("Test vector emplace out-of-scope") {
-    // const size_t size = 1024;
-    // cu::DeviceMemory mem = stream.memAllocAsync(size);
-    // {
-    //
-    // }
-    // CHECK(mem.size() == size);
-    // CHECK_NOTHROW(stream.memFreeAsync(mem));
-    // CHECK_NOTHROW(stream.synchronize());
+    for (size_t i = 0; i < iterations; ++i) {
+      contexts.emplace_back(CU_CTX_SCHED_YIELD, device);
+      contexts.back().setCurrent();
+    }
+
+    for (size_t i = 0; i < iterations; ++i) {
+      std::cout << contexts.at(0).getCurrent() << std::endl;
+    }
   }
 
   SECTION("Test launchHostFunc") {
