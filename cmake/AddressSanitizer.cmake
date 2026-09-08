@@ -3,7 +3,7 @@
 #
 
 add_library(asan INTERFACE)
-target_compile_options(asan INTERFACE -fsanitize=address -fsanitize-recover=address -fno-omit-frame-pointer)
+target_compile_options(asan INTERFACE -fsanitize=address -fsanitize-recover=address -fno-omit-frame-pointer -g -O0)
 target_link_options(asan INTERFACE -fsanitize=address)
 
 function(enable_target_address_sanitizer target)

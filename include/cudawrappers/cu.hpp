@@ -547,7 +547,7 @@ class Context : public Wrapper<CUcontext> {
       : Wrapper<CUcontext>(context), _device(device) {}
 
  private:
-  cu::Device &_device;
+  cu::Device& _device;
 };
 
 class HostMemory : public Wrapper<void *> {
