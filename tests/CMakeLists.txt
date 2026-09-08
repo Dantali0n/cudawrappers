@@ -28,8 +28,13 @@ foreach(component ${COMPONENTS})
   target_include_directories(
     test_${component} PRIVATE "${CMAKE_SOURCE_DIR}/include"
   )
-  catch_discover_tests(test_${component})
+  catch_discover_tests(test_${component}
+    PROPERTIES ENVIRONMENT "${ADDRESS_SANITIZER_ASAN_ENV}${ADDRESS_SANITIZER_LEAK_ENV_OPTS}:${ADDRESS_SANITIZER_CUDA_ENV_OPTS}")
   target_link_libraries(test_${component} PUBLIC ${LINK_LIBRARIES})
+#  set_tests_properties(test_${component}
+#    PROPERTIES ENVIRONMENT "${ADDRESS_SANITIZER_ASAN_ENV}${ADDRESS_SANITIZER_LEAK_ENV_OPTS}:${ADDRESS_SANITIZER_CUDA_ENV_OPTS}"
+#  )
+
   enable_target_address_sanitizer(test_${component})
 endforeach()
 
